@@ -1,4 +1,19 @@
 .starwars-background {
+  perspective: calc(100vh * 0.4);
   background-color: black;
-  color: red;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.crawler-plane {
+  color: #f5c91c;
+  position: absolute;
+  width: 110%;
+  left: -5%;
+  bottom: -5%;
+  height: 200%;
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  transform: rotate3d(1, 0, 0, 45deg);
 }
