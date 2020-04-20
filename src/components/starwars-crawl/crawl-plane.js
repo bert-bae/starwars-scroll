@@ -4,6 +4,7 @@ const CRAWL_RATE = 0.06;
 
 const CrawlPlane = () => {
   const [position, setPosition] = useState(0);
+  const [triggerFade, setTriggerFade] = useState(false);
   const [scrollHeight, setScrollHeight] = useState(null);
   const crawlRef = useRef();
   const requestRef = useRef();
@@ -16,8 +17,15 @@ const CrawlPlane = () => {
   };
 
   const tick = (time) => {
-    if (scrollHeight && scrollHeight < -crawlPosition.current) {
+    if (scrollHeight < -crawlPosition.current) {
       return;
+    }
+    if (
+      Math.abs(crawlPosition.current) / scrollHeight > 0.9 &&
+      crawlPosition.current < 0 &&
+      !triggerFade
+    ) {
+      setTriggerFade(true);
     }
 
     const elapsed = time - prevTime.current;
@@ -47,6 +55,7 @@ const CrawlPlane = () => {
       ref={crawlRef}
       style={{
         top: `${position}px`,
+        opacity: `${triggerFade ? 0 : 1}`,
       }}
     >
       <div className="crawler-content">
