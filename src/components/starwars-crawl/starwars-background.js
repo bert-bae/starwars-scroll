@@ -5,7 +5,7 @@ const CRAWL_RATE = 0.06
 
 const StarwarsBackground = () => {
   const [position, setPosition] = useState(0)
-  const [crawlHeight, setCrawlHeight] = useState(null)
+  const [scrollHeight, setScrollHeight] = useState(null)
   const crawlRef = useRef()
   const requestRef = useRef()
   const crawlPosition = useRef(0)
@@ -20,7 +20,7 @@ const StarwarsBackground = () => {
     const elapsed = time - prevTime.current
     const distance = elapsed * CRAWL_RATE
 
-    if (crawlHeight && crawlHeight < -crawlPosition.current) {
+    if (scrollHeight && scrollHeight < -crawlPosition.current) {
       return
     }
 
@@ -31,14 +31,15 @@ const StarwarsBackground = () => {
   }
 
   useEffect(() => {
-    const clientHeight = crawlRef.current.clientHeight
-    if (crawlHeight && setPosition) {
+    if (scrollHeight) {
       requestAnimationFrame(tick)
     } else {
-      setCrawlHeight(() => clientHeight * 2.5)
+      const clientHeight = crawlRef.current.clientHeight
+      const scrollHeight = crawlRef.current.scrollHeight
+      setScrollHeight(() => scrollHeight * 1.5)
       crawlPosition.current = clientHeight
     }
-  }, [crawlHeight])
+  }, [scrollHeight])
 
   return (
     <div className="starwars-background">
