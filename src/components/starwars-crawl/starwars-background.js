@@ -5,54 +5,40 @@ const CRAWL_RATE = 0.06
 
 const StarwarsBackground = () => {
   const [position, setPosition] = useState(0)
+  const [crawlHeight, setCrawlHeight] = useState(null)
   const crawlRef = useRef()
   const requestRef = useRef()
   const crawlPosition = useRef(0)
   const prevTime = useRef(0)
   
   const moveCrawl = distance => {
-    crawlPosition.current = crawlPosition.current - distance
-    setPosition(crawlPosition.current)
-    // crawlRef.current.style.top = crawlPosition.current
-    if (crawlPosition.current < -crawlRef.current.clientHeight) {
-      // crawlRef.current.style.top = crawlRef.current.clientHeight
-      setPosition(crawlRef.current.clientHeight)
-    }
-    console.log(position)
+    crawlPosition.current -= distance
+    setPosition(crawlPosition.current - distance)
   }
 
   const tick = time => {
     const elapsed = time - prevTime.current
+    const distance = elapsed * CRAWL_RATE
+
+    if (crawlHeight && crawlHeight < -crawlPosition.current) {
+      return
+    }
+
     prevTime.current = time
-    moveCrawl(elapsed * CRAWL_RATE)
+    moveCrawl(distance)
     requestRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(requestRef.current)
   }
 
-  // // const [crawlPosition, setCrawlPosition] = useState(0)
-  // const prevTime = useRef(0)
-  // const crawlPosition = useRef(0)
-  // const crawlRef = createRef()
-
-  // const moveCrawl = (distance) => {
-  //   crawlPosition.current -= distance
-  //   crawlRef.current.style.top = crawlPosition.current
-  //   if (crawlPosition.current < -contentHeight) {
-  //     crawlRef.current.style.top = contentHeight
-  //   }
-  // }
-
-  // const tick = (time) => {
-  //   const elapsed = time - prevTime.current
-    
-  //   moveCrawl(elapsed * 0.06)
-  //   window.requestAnimationFrame(tick)
-  // }
-
   useEffect(() => {
-    crawlRef.current.style.top = crawlRef.current.clientHeight
-    window.requestAnimationFrame(tick)
-  }, [])
+    const clientHeight = crawlRef.current.clientHeight
+    if (crawlHeight && setPosition) {
+      requestAnimationFrame(tick)
+    } else {
+      setCrawlHeight(() => clientHeight * 2.5)
+      crawlPosition.current = clientHeight
+    }
+  }, [crawlHeight])
 
   return (
     <div className="starwars-background">
