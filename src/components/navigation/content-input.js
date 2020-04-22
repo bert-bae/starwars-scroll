@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
+import CommandHandlers from './command-handlers';
 
 const ContentInput = ({ updateContent }) => {
   const [inputTitle, setInputTitle] = useState('');
@@ -39,15 +40,11 @@ const ContentInput = ({ updateContent }) => {
           rowsMax={12}
         />
       </form>
-      <div className="command-container">
-        <button
-          onClick={() =>
-            updateContent(inputTitle, inputSubheader, inputContent)
-          }
-        >
-          Update
-        </button>
-      </div>
+      <CommandHandlers
+        updateContent={() =>
+          updateContent(inputTitle, inputSubheader, inputContent)
+        }
+      />
     </div>
   );
 };

@@ -19,7 +19,9 @@ const NavigationBar = ({ updateContent }) => {
 
   return (
     <div className="navigation-bar" onClick={toggleDrawer(false)}>
-      <button onClick={toggleDrawer(true)}>Menu</button>
+      <div className="menu-toggle" onClick={toggleDrawer(true)}>
+        Change Story
+      </div>
       <Drawer
         anchor="right"
         open={isOpen}

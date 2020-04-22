@@ -56,3 +56,19 @@ canvas {
   top: 0;
   left: 0;
 }
+
+@media only screen and (max-width: 568px) {
+  .crawler-content {
+    h1 {
+      font-size: 75px;
+    }
+
+    h2 {
+      font-size: 50px;
+    }
+
+    p {
+      font-size: 25px;
+    }
+  }
+}

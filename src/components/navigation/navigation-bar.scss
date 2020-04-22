@@ -25,6 +25,18 @@
   }
 }
 
+.menu-toggle {
+  color: #fff;
+  cursor: pointer;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 5px;
+  &:hover {
+    color: #ffe81f;
+    border-color: #ffe81f;
+  }
+}
+
 @media only screen and (max-width: 568px) {
   .menu-list {
     width: 75vw;

@@ -3,18 +3,18 @@ import React, { useState, useEffect, useRef } from 'react';
 const StarScreen = () => {
   const canvasRef = useRef();
 
-  const createCoordinates = () => {
+  const createCoordinates = (width, height) => () => {
     return {
-      x: Math.random() * 1600,
-      y: Math.random() * 900,
+      x: Math.random() * width,
+      y: Math.random() * height,
       z: Math.random() * 1000,
     };
   };
 
-  const starCoordinates = (numOfStars) => {
+  const starCoordinates = (numOfStars, coordinateCb) => {
     let result = new Set();
     for (let i = 0; i < numOfStars; i++) {
-      result.add(createCoordinates());
+      result.add(coordinateCb());
     }
     return result;
   };
@@ -31,8 +31,10 @@ const StarScreen = () => {
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    console.log(starCoordinates(1000));
-    starCoordinates(1000).forEach((coord) => {
+    starCoordinates(
+      1000,
+      createCoordinates(window.innerWidth, window.innerHeight)
+    ).forEach((coord) => {
       createStar(ctx, coord, Math.random());
     });
   }, []);

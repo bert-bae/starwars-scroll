@@ -13,9 +13,6 @@ const App = () => {
   );
 
   const updateContent = (title, subheader, content) => {
-    console.log(title);
-    console.log(subheader);
-    console.log(content);
     setTitle(title);
     setSubheader(subheader);
     setContent(content);
