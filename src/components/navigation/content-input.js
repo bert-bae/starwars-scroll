@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { TextField, TextareaAutosize, makeStyles } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
-const ContentInput = () => {
-  const [title, setTitle] = useState('');
-  const [subheader, setSubheader] = useState('');
-  const [content, setContent] = useState('');
+const ContentInput = ({ updateContent }) => {
+  const [inputTitle, setInputTitle] = useState('');
+  const [inputSubheader, setInputSubheader] = useState('');
+  const [inputContent, setInputContent] = useState('');
 
   const handleChange = (setter) => (event) => {
     event.stopPropagation();
@@ -18,27 +18,36 @@ const ContentInput = () => {
           id="outlined-basic"
           label="Title"
           variant="outlined"
-          value={title}
-          onChange={handleChange(setTitle)}
+          value={inputTitle}
+          onChange={handleChange(setInputTitle)}
         />
         <TextField
           id="outlined-basic"
           label="Subheader"
           variant="outlined"
-          value={subheader}
-          onChange={handleChange(setSubheader)}
+          value={inputSubheader}
+          onChange={handleChange(setInputSubheader)}
         />
         <TextField
           id="outlined-basic"
           label="Main Content"
           variant="outlined"
           multiline
-          value={content}
-          onChange={handleChange(setContent)}
+          value={inputContent}
+          onChange={handleChange(setInputContent)}
           rows={12}
           rowsMax={12}
         />
       </form>
+      <div className="command-container">
+        <button
+          onClick={() =>
+            updateContent(inputTitle, inputSubheader, inputContent)
+          }
+        >
+          Update
+        </button>
+      </div>
     </div>
   );
 };

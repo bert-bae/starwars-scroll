@@ -3,7 +3,7 @@ import { Drawer } from '@material-ui/core';
 import ContentInput from './content-input';
 import './navigation-bar.scss';
 
-const NavigationBar = () => {
+const NavigationBar = ({ updateContent }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -26,7 +26,7 @@ const NavigationBar = () => {
         onClick={toggleDrawer(true)}
         onClose={toggleDrawer(false)}
       >
-        <ContentInput />
+        <ContentInput updateContent={updateContent} />
       </Drawer>
     </div>
   );

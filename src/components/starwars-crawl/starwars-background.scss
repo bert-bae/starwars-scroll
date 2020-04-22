@@ -27,24 +27,32 @@
   );
 }
 
+.crawler-content {
+  h1 {
+    font-size: 150px;
+    text-align: center;
+    white-space: pre-wrap;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: 100px;
+    text-align: center;
+    white-space: pre-wrap;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 50px;
+    text-align: justify;
+    word-wrap: normal;
+    white-space: pre-wrap;
+    text-transform: uppercase;
+  }
+}
+
 canvas {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-h1 {
-  font-size: 150px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 100px;
-  text-align: center;
-}
-
-p {
-  font-size: 50px;
-  text-align: justify;
-  word-wrap: normal;
 }

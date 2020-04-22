@@ -3,11 +3,11 @@ import StarScreen from './star-screen';
 import CrawlPlane from './crawl-plane';
 import './starwars-background.scss';
 
-const StarwarsBackground = () => {
+const StarwarsBackground = ({ getContent }) => {
   return (
     <div className="starwars-background">
       <StarScreen />
-      <CrawlPlane />
+      <CrawlPlane getContent={getContent} />
     </div>
   );
 };
