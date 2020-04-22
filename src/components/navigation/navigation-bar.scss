@@ -1,5 +1,29 @@
 .navigation-bar {
-  height: 70px;
+  background-color: transparent;
+  position: absolute;
+  z-index: 1000;
+  top: 25px;
+  right: 25px;
+}
+
+.menu-list {
   width: 100%;
-  background-color: #fff;
+  height: 100%;
+  width: 50vw;
+  padding: 25px;
+  box-sizing: border-box;
+  form {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: repeat(1, minmax(auto, 1fr));
+    grid-gap: 25px;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .menu-list {
+    width: 75vw;
+  }
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Drawer } from '@material-ui/core';
+import ContentInput from './content-input';
 import './navigation-bar.scss';
 
 const NavigationBar = () => {
@@ -13,16 +14,11 @@ const NavigationBar = () => {
     ) {
       return;
     }
-    console.log(open);
     setIsOpen(open);
   };
 
   return (
-    <div
-      className="navigation-bar"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
+    <div className="navigation-bar" onClick={toggleDrawer(false)}>
       <button onClick={toggleDrawer(true)}>Menu</button>
       <Drawer
         anchor="right"
@@ -30,7 +26,7 @@ const NavigationBar = () => {
         onClick={toggleDrawer(true)}
         onClose={toggleDrawer(false)}
       >
-        Hello world
+        <ContentInput />
       </Drawer>
     </div>
   );
