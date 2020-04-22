@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const CRAWL_RATE = 0.06;
+const CRAWL_RATE = 0.15;
 
 const CrawlPlane = ({ getContent }) => {
   const [position, setPosition] = useState(0);
@@ -18,6 +18,8 @@ const CrawlPlane = ({ getContent }) => {
 
   const tick = (time) => {
     if (scrollHeight < -crawlPosition.current) {
+      setPosition(0);
+      setScrollHeight(null);
       return;
     }
     if (
@@ -44,6 +46,7 @@ const CrawlPlane = ({ getContent }) => {
     } else {
       const clientHeight = crawlRef.current.clientHeight;
       const scrollHeight = crawlRef.current.scrollHeight;
+      setTriggerFade(false);
       setScrollHeight(() => scrollHeight * 1.5);
       crawlPosition.current = clientHeight;
     }
