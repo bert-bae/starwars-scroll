@@ -12,9 +12,9 @@ const StarScreen = () => {
   };
 
   const starCoordinates = (numOfStars, coordinateCb) => {
-    let result = new Set();
+    let result = [];
     for (let i = 0; i < numOfStars; i++) {
-      result.add(coordinateCb());
+      result.push(coordinateCb());
     }
     return result;
   };
