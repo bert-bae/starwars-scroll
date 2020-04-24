@@ -13,7 +13,7 @@ const CrawlPlane = ({ getContent }) => {
 
   const moveCrawl = (distance) => {
     crawlPosition.current -= distance;
-    setPosition(crawlPosition.current - distance);
+    setPosition(crawlPosition.current);
   };
 
   const tick = (time) => {
