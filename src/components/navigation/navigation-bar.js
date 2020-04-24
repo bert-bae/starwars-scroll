@@ -5,6 +5,21 @@ import './navigation-bar.scss';
 
 const NavigationBar = ({ updateContent }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputTitle, setInputTitle] = useState('');
+  const [inputSubheader, setInputSubheader] = useState('');
+  const [inputContent, setInputContent] = useState('');
+
+  const inputSetters = {
+    setInputTitle,
+    setInputSubheader,
+    setInputContent,
+  };
+
+  const inputStates = {
+    inputTitle,
+    inputSubheader,
+    inputContent,
+  };
 
   const toggleDrawer = (open) => (event) => {
     event.stopPropagation();
@@ -28,7 +43,11 @@ const NavigationBar = ({ updateContent }) => {
         onClick={toggleDrawer(true)}
         onClose={toggleDrawer(false)}
       >
-        <ContentInput updateContent={updateContent} />
+        <ContentInput
+          updateContent={updateContent}
+          inputStates={inputStates}
+          inputSetters={inputSetters}
+        />
       </Drawer>
     </div>
   );

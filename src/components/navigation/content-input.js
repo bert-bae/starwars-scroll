@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField } from '@material-ui/core';
 import CommandHandlers from './command-handlers';
 
-const ContentInput = ({ updateContent }) => {
-  const [inputTitle, setInputTitle] = useState('');
-  const [inputSubheader, setInputSubheader] = useState('');
-  const [inputContent, setInputContent] = useState('');
-
+const ContentInput = ({ updateContent, inputStates, inputSetters }) => {
   const handleChange = (setter) => (event) => {
     event.stopPropagation();
     setter(event.target.value);
@@ -19,30 +15,34 @@ const ContentInput = ({ updateContent }) => {
           id="outlined-basic"
           label="Title"
           variant="outlined"
-          value={inputTitle}
-          onChange={handleChange(setInputTitle)}
+          value={inputStates.inputTitle}
+          onChange={handleChange(inputSetters.setInputTitle)}
         />
         <TextField
           id="outlined-basic"
           label="Subheader"
           variant="outlined"
-          value={inputSubheader}
-          onChange={handleChange(setInputSubheader)}
+          value={inputStates.inputSubheader}
+          onChange={handleChange(inputSetters.setInputSubheader)}
         />
         <TextField
           id="outlined-basic"
           label="Main Content"
           variant="outlined"
           multiline
-          value={inputContent}
-          onChange={handleChange(setInputContent)}
+          value={inputStates.inputContent}
+          onChange={handleChange(inputSetters.setInputContent)}
           rows={12}
           rowsMax={12}
         />
       </form>
       <CommandHandlers
         updateContent={() =>
-          updateContent(inputTitle, inputSubheader, inputContent)
+          updateContent(
+            inputStates.inputTitle,
+            inputStates.inputSubheader,
+            inputStates.inputContent
+          )
         }
       />
     </div>
