@@ -26,7 +26,7 @@ exports.handler = async (event) => {
   const params = {
     TableName: tableNames.Stories,
     Item: {
-      id: short.generate(),
+      short_id: short.generate(),
       title: body.title,
       subheader: body.subheader,
       content: body.content,
@@ -38,6 +38,6 @@ exports.handler = async (event) => {
 
   return {
     ...result,
-    data: newStory,
+    data: params,
   };
 };

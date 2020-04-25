@@ -25,15 +25,11 @@ Resources:
     Properties:
       TableName: Stories
       AttributeDefinitions:
-        - AttributeName: title
-          AttributeType: S
         - AttributeName: short_id
           AttributeType: S
       KeySchema:
-        - AttributeName: title
-          KeyType: HASH
         - AttributeName: short_id
-          KeyType: RANGE
+          KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 0
         WriteCapacityUnits: 0
@@ -87,7 +83,7 @@ Resources:
         SaveStory:
           Type: Api
           Properties:
-            Path: /story/{id}
+            Path: /story/{shortId}
             Method: get
 
   DynamoUpdateStoryLambda:
@@ -101,7 +97,7 @@ Resources:
         SaveStory:
           Type: Api
           Properties:
-            Path: /story/{id}
+            Path: /story/{shortId}
             Method: put
 
 Outputs:
