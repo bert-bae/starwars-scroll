@@ -1,4 +1,4 @@
-const { uuid } = require('uuidv4');
+const short = require('shortid');
 const { create } = require('../utils/dynamo-client');
 const tableNames = require('../constants/table-names');
 
@@ -26,7 +26,7 @@ exports.handler = async (event) => {
   const params = {
     TableName: tableNames.Stories,
     Item: {
-      id: uuid(),
+      id: short.generate(),
       title: body.title,
       subheader: body.subheader,
       content: body.content,

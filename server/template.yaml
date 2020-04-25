@@ -24,18 +24,16 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: Stories
-      KeySchema:
-        - AttributeName: id
-          KeyType: HASH
       AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
         - AttributeName: title
           AttributeType: S
-        - AttributeName: subheader
+        - AttributeName: short_id
           AttributeType: S
-        - AttributeName: content
-          AttributeType: S
+      KeySchema:
+        - AttributeName: title
+          KeyType: HASH
+        - AttributeName: short_id
+          KeyType: RANGE
       ProvisionedThroughput:
         ReadCapacityUnits: 0
         WriteCapacityUnits: 0
