@@ -1,8 +1,17 @@
-build:
-	sam build
+BUILD_PATH=build
 
-package:
-	sam package...
+.PHONY: deploy build
 
-deploy: build package
-	aws cloudformation...
+.$(BUILD_PATH):
+	mkdir -p $(BUILD_PATH)
+	cp -r samconfig.toml ./$(BUILD_PATH)
+	cp -r package.json ./$(BUILD_PATH)
+	cp -rf template.yaml ./$(BUILD_PATH)
+	cp -rf src ./$(BUILD_PATH)
+
+build: .$(BUILD_PATH)
+	cd $(BUILD_PATH) && sam build
+
+deploy: build
+	cd $(BUILD_PATH) && sam deploy --stack-name $(STACK_NAME) --parameter-overrides \
+		ExampleEnv=HelloWorld
