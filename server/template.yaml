@@ -16,6 +16,22 @@ Globals:
 #     Default: unknown
 
 Resources:
+  # DynamoDB table setup
+  DyanmoDBStoryTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Stories
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 0
+        WriteCapacityUnits: 0
+      BillingMode: PAY_PER_REQUEST
+
   # Log group
   DynamoSaveStoryLogGroup:
     Type: AWS::Logs::LogGroup
