@@ -9,6 +9,9 @@ Globals:
     Tags:
       service: starwars-crawler
       owner: Elbert Bae
+  Api:
+    Auth:
+      ApiKeyRequired: false
 
 # Parameters:
 #   ExampleName:
@@ -26,6 +29,12 @@ Resources:
           KeyType: HASH
       AttributeDefinitions:
         - AttributeName: id
+          AttributeType: S
+        - AttributeName: title
+          AttributeType: S
+        - AttributeName: subheader
+          AttributeType: S
+        - AttributeName: content
           AttributeType: S
       ProvisionedThroughput:
         ReadCapacityUnits: 0
@@ -56,7 +65,9 @@ Resources:
   DynamoSaveStoryLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./src/lambdas/save-story.js
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Handler: ./src/lambdas/save-story.handler
       Timeout: 10
       Events:
         SaveStory:
@@ -70,25 +81,29 @@ Resources:
   DynamoGetStoryLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./src/lambdas/get-story.js
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Handler: ./src/lambdas/get-story.handler
       Timeout: 10
       Events:
         SaveStory:
           Type: Api
           Properties:
-            Path: /story
+            Path: /story/{id}
             Method: get
 
   DynamoUpdateStoryLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./src/lambdas/update-story.js
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Handler: ./src/lambdas/update-story.handler
       Timeout: 10
       Events:
         SaveStory:
           Type: Api
           Properties:
-            Path: /story
+            Path: /story/{id}
             Method: put
 
 Outputs:

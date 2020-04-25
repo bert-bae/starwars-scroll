@@ -1,3 +1,4 @@
+const { uuid } = require('uuidv4');
 const { create } = require('../utils/dynamo-client');
 const tableNames = require('../constants/table-names');
 
@@ -8,7 +9,11 @@ exports.handler = async (event) => {
     data: null,
     error: null,
   };
-  const body = event.body ? JSON.parse(event.body) : null;
+  const body = event.body
+    ? typeof event.body === 'string'
+      ? JSON.parse(event.body)
+      : event.body
+    : null;
 
   if (!body) {
     console.log('Event body is missing');
@@ -18,17 +23,18 @@ exports.handler = async (event) => {
     };
   }
 
-  const newStory = await create({
+  const params = {
     TableName: tableNames.Stories,
     Item: {
+      id: uuid(),
       title: body.title,
       subheader: body.subheader,
       content: body.content,
-      created_at: new Date().toISOString(),
     },
-  });
+  };
+  const newStory = await create(params);
 
-  console.log(`New story created... ${JSON.stringify(newStory, null, 2)}`);
+  console.log(`New story created... ${JSON.stringify(params, null, 2)}`);
 
   return {
     ...result,
