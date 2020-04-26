@@ -5,12 +5,10 @@ exports.handler = async (event) => {
   console.log(`GET Lambda triggered`);
   const result = {
     statusCode: 200,
-    data: null,
-    error: null,
+    body: null,
   };
   const pathParams = event.pathParameters;
 
-  console.log(event);
   const params = {
     TableName: tableNames.Stories,
     Key: {
@@ -23,6 +21,6 @@ exports.handler = async (event) => {
 
   return {
     ...result,
-    data: story,
+    body: JSON.stringify(story),
   };
 };

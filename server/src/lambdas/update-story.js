@@ -5,8 +5,7 @@ exports.handler = async (event) => {
   console.log(`PUT Lambda triggered`);
   const result = {
     statusCode: 200,
-    data: null,
-    error: null,
+    body: null,
   };
   const pathParams = event.pathParameters;
   const body = event.body ? JSON.parse(event.body) : null;
@@ -15,10 +14,12 @@ exports.handler = async (event) => {
     console.log(
       `Update attributes are not specified: ${JSON.stringify(body, null, 2)}`
     );
-    return {
+    return JSON.stringify({
       ...result,
-      error: 'Update attributes are not specified',
-    };
+      body: JSON.stringify({
+        error: 'Update attributes are not specified',
+      }),
+    });
   }
 
   const params = {
@@ -40,6 +41,6 @@ exports.handler = async (event) => {
 
   return {
     ...result,
-    data: params,
+    body: JSON.stringify(params),
   };
 };

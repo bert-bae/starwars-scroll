@@ -9,9 +9,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 const get = async (params) => {
   try {
-    const data = await docClient.get(params).promise();
-    console.log(`GetItem successful: ${JSON.stringify(data, null, 2)}`);
-    return data;
+    return await docClient.get(params).promise();
   } catch (err) {
     throw new Error(`Unable to read item: ${JSON.stringify(err, null, 2)}`);
   }
@@ -19,9 +17,7 @@ const get = async (params) => {
 
 const create = async (params) => {
   try {
-    const data = await docClient.put(params).promise();
-    console.log(`CreateItem successful: ${JSON.stringify(data, null, 2)}`);
-    return data;
+    return await docClient.put(params).promise();
   } catch (err) {
     throw new Error(`Unable to create item: ${JSON.stringify(err, null, 2)}`);
   }
@@ -29,9 +25,7 @@ const create = async (params) => {
 
 const update = async (params) => {
   try {
-    const data = await docClient.update(params).promise();
-    console.log(`UpdateItem successful: ${JSON.stringify(data, null, 2)}`);
-    return data;
+    return await docClient.update(params).promise();
   } catch (err) {
     throw new Error(`Unable to update item: ${JSON.stringify(err, null, 2)}`);
   }

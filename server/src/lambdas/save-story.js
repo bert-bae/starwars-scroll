@@ -6,8 +6,7 @@ exports.handler = async (event) => {
   console.log(`POST Lambda triggered`);
   const result = {
     statusCode: 200,
-    data: null,
-    error: null,
+    body: null,
   };
   const body = event.body ? JSON.parse(event.body) : null;
 
@@ -15,7 +14,9 @@ exports.handler = async (event) => {
     console.log('Event body is missing');
     return {
       ...result,
-      error: `Event body is missing`,
+      body: JSON.stringify({
+        error: `Event body is missing`,
+      }),
     };
   }
 
@@ -34,6 +35,6 @@ exports.handler = async (event) => {
 
   return {
     ...result,
-    data: params,
+    body: JSON.stringify(params),
   };
 };
