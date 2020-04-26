@@ -1,3 +1,7 @@
+ifndef API_KEY
+API_KEY=none
+endif
+
 BUILD_PATH=build
 
 .PHONY: deploy build
@@ -14,4 +18,4 @@ build: .$(BUILD_PATH)
 
 deploy: build
 	cd $(BUILD_PATH) && sam deploy --stack-name $(STACK_NAME) --parameter-overrides \
-		ExampleEnv=HelloWorld
+		ApiKey=$(API_KEY)
