@@ -10,8 +10,11 @@ Globals:
       service: starwars-crawler
       owner: Elbert Bae
   Api:
-    Auth:
-      ApiKeyRequired: !If [!Equals [!Ref ApiKey, none], false, true]
+    Cors:
+      AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,X-Amz-Security-Token,Authorization,X-Api-Key,X-Requested-With,Accept,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Access-Control-Allow-Headers'"
+      AllowOrigin: "'*'"
+    EndpointConfiguration: REGIONAL
 
 Parameters:
   ApiKey:
@@ -19,7 +22,7 @@ Parameters:
     Default: none
 
 Conditions:
-  CreateApiKey: !Not [!Equals [!Ref ApiKey, none]]
+  CreateApiKey: !Not [!Equals [!Ref ApiKey, 'none']]
 
 Resources:
   # DynamoDB table setup
@@ -64,7 +67,7 @@ Resources:
     Properties:
       Policies:
         - AmazonDynamoDBFullAccess
-      Handler: ./src/lambdas/save-story.handler
+      Handler: src/lambdas/save-story.handler
       Timeout: 10
       Events:
         SaveStory:
@@ -79,7 +82,7 @@ Resources:
     Properties:
       Policies:
         - AmazonDynamoDBFullAccess
-      Handler: ./src/lambdas/get-story.handler
+      Handler: src/lambdas/get-story.handler
       Timeout: 10
       Events:
         SaveStory:
@@ -94,7 +97,7 @@ Resources:
     Properties:
       Policies:
         - AmazonDynamoDBFullAccess
-      Handler: ./src/lambdas/update-story.handler
+      Handler: src/lambdas/update-story.handler
       Timeout: 10
       Events:
         SaveStory:
@@ -109,9 +112,8 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
-      MethodSettings:
-        - ResourcePath: '/*'
-          HttpMethod: '*'
+      Auth:
+        ApiKeyRequired: true
 
   UsagePlan:
     Type: AWS::ApiGateway::UsagePlan

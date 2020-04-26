@@ -1,5 +1,5 @@
 ifndef API_KEY
-API_KEY=none
+API_KEY=defaultapikeystring12345
 endif
 
 BUILD_PATH=build
