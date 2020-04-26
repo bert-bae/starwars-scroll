@@ -9,11 +9,7 @@ exports.handler = async (event) => {
     data: null,
     error: null,
   };
-  const body = event.body
-    ? typeof event.body === 'string'
-      ? JSON.parse(event.body)
-      : event.body
-    : null;
+  const body = event.body ? JSON.parse(event.body) : null;
 
   if (!body) {
     console.log('Event body is missing');
@@ -32,7 +28,7 @@ exports.handler = async (event) => {
       content: body.content,
     },
   };
-  const newStory = await create(params);
+  await create(params);
 
   console.log(`New story created... ${JSON.stringify(params, null, 2)}`);
 
