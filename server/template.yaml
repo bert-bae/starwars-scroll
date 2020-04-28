@@ -69,6 +69,18 @@ Resources:
     Properties:
       RetentionInDays: 30
       LogGroupName: !Sub '/aws/lambda/${DynamoUpdateStoryLambda}'
+  DynamoSaveWhitelistDomainLogGroup:
+    Type: AWS::Logs::LogGroup
+    DependsOn: [DynamoSaveWhitelistDomainLambda]
+    Properties:
+      RetentionInDays: 30
+      LogGroupName: !Sub '/aws/lambda/${DynamoSaveWhitelistDomainLambda}'
+  DynamGetWhitelistDomainLogGroup:
+    Type: AWS::Logs::LogGroup
+    DependsOn: [DynamoGetWhitelistDomainLambda]
+    Properties:
+      RetentionInDays: 30
+      LogGroupName: !Sub '/aws/lambda/${DynamoGetWhitelistDomainLambda}'
 
   # Lambda Fn
   DynamoSaveWhitelistDomainLambda:

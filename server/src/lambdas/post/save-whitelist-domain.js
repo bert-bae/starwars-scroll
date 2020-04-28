@@ -26,16 +26,17 @@ exports.handler = async (event) => {
     };
   }
 
+  const domainUrl = body.domain.replace(/(http:\/\/|https:\/\/)/gi, '');
   const params = {
     TableName: tableNames.WhitelistDomains,
     Item: {
-      domain_url: body.domain,
+      domain_url: domainUrl,
     },
   };
   await create(params);
 
   return {
     ...result,
-    body: `Domain ${body.domain} has been whitelisted`,
+    body: `Domain ${domainUrl} has been whitelisted`,
   };
 };
