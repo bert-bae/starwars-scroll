@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader';
 import './styles/App.css';
 // Components
@@ -11,12 +11,24 @@ const App = () => {
   const [content, setContent] = useState(
     'The story begins with a simple update in the menu'
   );
+  const [shortId, setShortId] = useState(null);
 
   const updateContent = (title, subheader, content) => {
     setTitle(title);
     setSubheader(subheader);
     setContent(content);
   };
+
+  // useEffect(() => {
+  //   if (!shortId) {
+  //     updateContent('test', 'test', 'test');
+  //   } else {
+  //     const params = new URLSearchParams(window.location.search);
+  //     if (params.has('shortId')) {
+  //       setShortId(123456);
+  //     }
+  //   }
+  // }, [shortId]);
 
   return (
     <div className="App">

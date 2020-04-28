@@ -1,6 +1,6 @@
 const short = require('shortid');
-const { create } = require('../utils/dynamo-client');
-const tableNames = require('../constants/table-names');
+const { create } = require('../../utils/dynamo-client');
+const tableNames = require('../../constants/table-names');
 
 exports.handler = async (event) => {
   console.log(`POST Lambda triggered`);
