@@ -23,3 +23,11 @@ Deployment:
 
 1. Go into `server` folder.
 2. Run `make deploy STACK_NAME=<YOUR_STACK_NAME>`
+3. Whitelist your stack url to allow access. This will allow you to `curl` or `postman` any of the other API endpoints. You can also whitelist any URLs that will be making the request such as `http://localhost:3001`. This ensures that the API Key does not have to be on client-side code and exposed to the public to ensure security to your server.
+
+```
+curl --header "Content-Type: application/json" --header "x-api-key: <YOUR-API-KEY>" \
+  --request POST \
+  --data '{"domain":"<YOUR-STACK-URL>"}' \
+  https://<YOUR-STACK-URL>/whitelist
+```

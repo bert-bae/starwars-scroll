@@ -5,12 +5,13 @@ import './styles/App.css';
 import NavigationBar from './components/navigation/navigation-bar';
 import StarwarsBackground from './components/starwars-crawl/starwars-background';
 
+// Default config
+import DefaultStates from './config/default.json';
+
 const App = () => {
-  const [title, setTitle] = useState('A New Title');
-  const [subheader, setSubheader] = useState('The Story');
-  const [content, setContent] = useState(
-    'The story begins with a simple update in the menu'
-  );
+  const [title, setTitle] = useState(DefaultStates.title);
+  const [subheader, setSubheader] = useState(DefaultStates.subheader);
+  const [content, setContent] = useState(DefaultStates.content);
   const [shortId, setShortId] = useState(null);
 
   const updateContent = (title, subheader, content) => {
