@@ -10,6 +10,14 @@ Requirements:
 - `npm install`
 - `npm run start`
 
+Deployment:
+
+- [Setting up S3 and Cloudfront with Route53](https://www.youtube.com/watch?v=DiIaoIcoKNY)
+- Once S3, Cloudfront, and Route53 (optional for custom domains) are set up, export your S3 bucket name with `export S3_BUCKET=<bucket name>`
+- Run `make deploy-s3` from root
+- Alternatively, you can upload to s3 directly by running your own `aws s3 cp [local] [s3BucketPath]`
+  - Example in `/deploy/upload-to-s3.sh`
+
 # Deploying Lambdas (Server)
 
 Requirements:

@@ -17,5 +17,5 @@ build: .$(BUILD_PATH)
 	cd $(BUILD_PATH) && sam build
 
 deploy: build
-	cd $(BUILD_PATH) && sam deploy --stack-name $(STACK_NAME) --s3-prefix $(cloudformation-stack) --parameter-overrides \
+	cd $(BUILD_PATH) && sam deploy --stack-name $(STACK_NAME) --s3-bucket $(S3_BUCKET) --s3-prefix $(cloudformation-stack) --parameter-overrides \
 		ApiKey=$(API_KEY)

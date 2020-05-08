@@ -3,4 +3,3 @@ version=0.1
 region = "us-west-2"
 stack_name = "starwars-crawler-default"
 capabilities = "CAPABILITY_IAM"
-s3_bucket = "starwars-crawl"
