@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const CRAWL_RATE = 0.15;
+const CRAWL_RATE = 0.07;
 
 const CrawlPlane = ({ getContent }) => {
   const [position, setPosition] = useState(0);
