@@ -1,6 +1,7 @@
 const short = require('shortid');
 const { isWhitelisted } = require('../../utils/request-helpers');
 const { create } = require('../../utils/dynamo-client');
+const { setTtlBySeconds } = require('../../utils/date-utils');
 const tableNames = require('../../constants/table-names');
 
 exports.handler = async (event) => {
@@ -39,6 +40,7 @@ exports.handler = async (event) => {
       title: body.title,
       subheader: body.subheader,
       content: body.content,
+      ttl: body.ignoreTtl ? undefined : setTtlBySeconds(7),
     },
   };
   await create(params);

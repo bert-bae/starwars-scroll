@@ -9,6 +9,11 @@ Globals:
     Tags:
       service: starwars-crawler
       owner: Elbert Bae
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,POST,GET'"
+      AllowHeaders: "'Content-Type'"
+      AllowOrigin: "'http://localhost:3001'"
 
 Parameters:
   ApiKey:
@@ -49,6 +54,9 @@ Resources:
         ReadCapacityUnits: 0
         WriteCapacityUnits: 0
       BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
 
   # Log group
   DynamoSaveStoryLogGroup:
