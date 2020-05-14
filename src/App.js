@@ -11,6 +11,7 @@ import StarwarsBackground from './components/starwars-crawl/starwars-background'
 import DefaultStates from './config/default.json';
 
 const App = () => {
+  const [startCrawl, setStartCrawl] = useState(false);
   const [title, setTitle] = useState(DefaultStates.title);
   const [subheader, setSubheader] = useState(DefaultStates.subheader);
   const [content, setContent] = useState(DefaultStates.content);
@@ -34,12 +35,16 @@ const App = () => {
         }
       })();
     }
+    setStartCrawl(true);
   }, []);
 
   return (
     <div className="App">
       <NavigationBar updateContent={updateContent} />
-      <StarwarsBackground getContent={{ title, subheader, content }} />
+      <StarwarsBackground
+        startCrawl={startCrawl}
+        getContent={{ title, subheader, content }}
+      />
     </div>
   );
 };

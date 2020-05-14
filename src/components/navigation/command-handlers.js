@@ -21,7 +21,7 @@ const CommandHandlers = ({ updateContent, inputStates }) => {
 
     if (saved.short_id) {
       setError('');
-      setLink(`https://${baseUrl}?shortId=${saved.short_id}`);
+      setLink(`https://${baseUrl}/?shortId=${saved.short_id}`);
     }
   };
 
