@@ -1,22 +1,20 @@
 const { get } = require('../../utils/dynamo-client');
-const { isWhitelisted } = require('../../utils/request-helpers');
+const {
+  isWhitelisted,
+  constructResponse,
+} = require('../../utils/request-helpers');
 const tableNames = require('../../constants/table-names');
 
 exports.handler = async (event) => {
   console.log(`GET Lambda triggered`);
   const isWhitelist = await isWhitelisted(event.headers.Host);
-  const result = {
-    statusCode: 200,
-    body: null,
-  };
-
   if (!isWhitelist) {
-    return {
-      ...result,
-      body: JSON.stringify({
+    return constructResponse(
+      {
         error: 'Access denied: Domain is not whitelisted.',
-      }),
-    };
+      },
+      404
+    );
   }
 
   const pathParams = event.pathParameters;
@@ -31,8 +29,5 @@ exports.handler = async (event) => {
 
   console.log(`GET story... ${JSON.stringify(story, null, 2)}`);
 
-  return {
-    ...result,
-    body: JSON.stringify(story),
-  };
+  return constructResponse(story, 200);
 };

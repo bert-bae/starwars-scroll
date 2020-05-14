@@ -2,6 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Starwars crawler DynamoDB api endpoints
 
+Parameters:
+  ApiKey:
+    Type: String
+    Default: none
+  OriginUrl:
+    Type: String
+
 Globals:
   Function:
     Runtime: nodejs10.x
@@ -9,16 +16,9 @@ Globals:
     Tags:
       service: starwars-crawler
       owner: Elbert Bae
-  Api:
-    Cors:
-      AllowMethods: "'OPTIONS,POST,GET'"
-      AllowHeaders: "'Content-Type'"
-      AllowOrigin: "'http://localhost:3001'"
-
-Parameters:
-  ApiKey:
-    Type: String
-    Default: none
+    Environment:
+      Variables:
+        ORIGIN_URL: !Ref OriginUrl
 
 Conditions:
   CreateApiKey: !Not [!Equals [!Ref ApiKey, 'none']]
@@ -105,8 +105,6 @@ Resources:
             RestApiId: !Ref ApiGateway
             Path: /whitelist
             Method: post
-            Auth:
-              ApiKeyRequired: true
 
   DynamoGetWhitelistDomainLambda:
     Type: AWS::Serverless::Function
@@ -122,8 +120,6 @@ Resources:
             RestApiId: !Ref ApiGateway
             Path: /whitelist
             Method: get
-            Auth:
-              ApiKeyRequired: true
 
   DynamoSaveStoryLambda:
     Type: AWS::Serverless::Function
@@ -177,6 +173,10 @@ Resources:
       StageName: Prod
       Auth:
         ApiKeyRequired: false
+      Cors:
+        AllowMethods: "'POST,GET'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: !Sub "'${OriginUrl}'"
 
   UsagePlan:
     Type: AWS::ApiGateway::UsagePlan

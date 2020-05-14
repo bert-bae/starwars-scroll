@@ -32,8 +32,8 @@ const ContentInput = ({ updateContent, inputStates, inputSetters }) => {
           multiline
           value={inputStates.inputContent}
           onChange={handleChange(inputSetters.setInputContent)}
-          rows={12}
-          rowsMax={12}
+          rows={8}
+          rowsMax={8}
         />
       </form>
       <CommandHandlers
@@ -44,6 +44,7 @@ const ContentInput = ({ updateContent, inputStates, inputSetters }) => {
             inputStates.inputContent
           )
         }
+        inputStates={inputStates}
       />
     </div>
   );

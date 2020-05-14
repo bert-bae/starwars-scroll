@@ -21,6 +21,18 @@ const isWhitelisted = async (host) => {
   return false;
 };
 
+const constructResponse = (data, statusCode) => {
+  return {
+    statusCode,
+    body: JSON.stringify(data),
+    headers: {
+      'Access-Control-Allow-Origin': process.env.ORIGIN_URL,
+      'Access-Control-Allow-Credentials': true,
+    },
+  };
+};
+
 module.exports = {
   isWhitelisted,
+  constructResponse,
 };

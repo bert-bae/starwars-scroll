@@ -1,5 +1,8 @@
 const { update } = require('../../utils/dynamo-client');
-const { isWhitelisted } = require('../../utils/request-helpers');
+const {
+  isWhitelisted,
+  constructResponse,
+} = require('../../utils/request-helpers');
 const tableNames = require('../../constants/table-names');
 
 exports.handler = async (event) => {
@@ -11,12 +14,12 @@ exports.handler = async (event) => {
   };
 
   if (!isWhitelist) {
-    return {
-      ...result,
-      body: JSON.stringify({
+    return constructResponse(
+      {
         error: 'Access denied: Domain is not whitelisted.',
-      }),
-    };
+      },
+      404
+    );
   }
 
   const pathParams = event.pathParameters;
@@ -51,8 +54,5 @@ exports.handler = async (event) => {
 
   console.log(`Update story ${body.shortId} successfully`);
 
-  return {
-    ...result,
-    body: JSON.stringify(params),
-  };
+  return constructResponse(params, 200);
 };

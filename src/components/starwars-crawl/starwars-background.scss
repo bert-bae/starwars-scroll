@@ -43,7 +43,7 @@
   }
 
   p {
-    font-size: 50px;
+    font-size: 75px;
     text-align: justify;
     word-wrap: normal;
     white-space: pre-wrap;
@@ -57,6 +57,22 @@ canvas {
   left: 0;
 }
 
+@media only screen and (max-width: 768px) {
+  .crawler-content {
+    h1 {
+      font-size: 125px;
+    }
+
+    h2 {
+      font-size: 75px;
+    }
+
+    p {
+      font-size: 50px;
+    }
+  }
+}
+
 @media only screen and (max-width: 568px) {
   .crawler-content {
     h1 {
@@ -68,7 +84,7 @@ canvas {
     }
 
     p {
-      font-size: 25px;
+      font-size: 30px;
     }
   }
 }

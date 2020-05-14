@@ -1,5 +1,8 @@
 const short = require('shortid');
-const { isWhitelisted } = require('../../utils/request-helpers');
+const {
+  isWhitelisted,
+  constructResponse,
+} = require('../../utils/request-helpers');
 const { create } = require('../../utils/dynamo-client');
 const { setTtlBySeconds } = require('../../utils/date-utils');
 const tableNames = require('../../constants/table-names');
@@ -13,12 +16,12 @@ exports.handler = async (event) => {
   };
 
   if (!isWhitelist) {
-    return {
-      ...result,
-      body: JSON.stringify({
+    return constructResponse(
+      {
         error: 'Access denied: Domain is not whitelisted.',
-      }),
-    };
+      },
+      404
+    );
   }
 
   const body = event.body ? JSON.parse(event.body) : null;
@@ -47,8 +50,5 @@ exports.handler = async (event) => {
 
   console.log(`New story created... ${JSON.stringify(params, null, 2)}`);
 
-  return {
-    ...result,
-    body: JSON.stringify(params),
-  };
+  return constructResponse(params, 200);
 };

@@ -1,7 +1,9 @@
+import 'regenerator-runtime/runtime.js';
 import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader';
 import './styles/App.css';
 // Components
+import { getStory } from './clients/api-client';
 import NavigationBar from './components/navigation/navigation-bar';
 import StarwarsBackground from './components/starwars-crawl/starwars-background';
 
@@ -12,7 +14,6 @@ const App = () => {
   const [title, setTitle] = useState(DefaultStates.title);
   const [subheader, setSubheader] = useState(DefaultStates.subheader);
   const [content, setContent] = useState(DefaultStates.content);
-  const [shortId, setShortId] = useState(null);
 
   const updateContent = (title, subheader, content) => {
     setTitle(title);
@@ -20,16 +21,20 @@ const App = () => {
     setContent(content);
   };
 
-  // useEffect(() => {
-  //   if (!shortId) {
-  //     updateContent('test', 'test', 'test');
-  //   } else {
-  //     const params = new URLSearchParams(window.location.search);
-  //     if (params.has('shortId')) {
-  //       setShortId(123456);
-  //     }
-  //   }
-  // }, [shortId]);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('shortId')) {
+      (async () => {
+        const story = await getStory(params.get('shortId'));
+
+        if (story) {
+          setTitle(story.title);
+          setSubheader(story.subheader);
+          setContent(story.content);
+        }
+      })();
+    }
+  }, []);
 
   return (
     <div className="App">
