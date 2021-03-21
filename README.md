@@ -2,6 +2,8 @@
 
 Submit a blob of text and watch as it turns your writing into a Star Wars introduction.
 
+Link to site [here](https://star-crawl.bertcode.com/)
+
 # Running the front-end
 
 Requirements:
